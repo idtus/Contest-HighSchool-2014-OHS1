@@ -186,9 +186,21 @@ public class BuiltInTester {
 			return Arrays.equals((int[]) param1, (int[]) param2);
 		else {
 			//Allow for comparison of different numerical types
-			if (param1 instanceof Number && param2 instanceof Number)
-				return ((Number)param1).longValue() == ((Number)param2).longValue();
-			else
+			if (param1 instanceof Number && param2 instanceof Number) {
+				//Compare Long, Integer, Short, and Byte
+				if ((param1 instanceof Long || param1 instanceof Integer ||
+					 param1 instanceof Short || param1 instanceof Byte) &&
+					(param2 instanceof Long || param2 instanceof Integer ||
+					 param2 instanceof Short || param2 instanceof Byte))
+					return ((Number)param1).longValue() == ((Number)param2).longValue();
+				//Compare Double and Float
+				else if ((param1 instanceof Double || param1 instanceof Float) &&
+						 (param2 instanceof Double || param2 instanceof Float))
+					return ((Number)param1).doubleValue() == ((Number)param2).doubleValue();
+				//Any other subclass of Number
+				else
+					return param1.equals(param2);
+			} else
 				return param1.equals(param2);
 		}
 	}
