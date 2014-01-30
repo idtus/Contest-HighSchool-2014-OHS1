@@ -1,5 +1,7 @@
 package com.idt.contest.highschool.winter2014.codetotest;
 
+import org.ohs1.winter2013.BuiltInTester;
+
 import com.idt.contest.highschool.winter2014.framework.FrameworkConstants;
 
 /**
@@ -14,6 +16,9 @@ public class ByteUtility {
 	 * @return - String binary representation of byte, 2's compliment if the byte is negative
 	 */
 	public String byteToBinytaryString(byte b) {
+		BuiltInTester.expecting("return 111001", b, 57);
+		BuiltInTester.expecting("return 0", b, 0);
+		BuiltInTester.expecting("return 11000111", b, -57);
 		
 		byte remainder = 0;
 		byte number = b;
@@ -36,6 +41,7 @@ public class ByteUtility {
 			//
 			//
 			//
+			BuiltInTester.log("return " + FrameworkConstants.ONE_STRING);
 			return FrameworkConstants.ONE_STRING;
 		}
 		
@@ -60,6 +66,7 @@ public class ByteUtility {
 			binaryRepresentation = su.binaryByteTwosCompliment(binaryRepresentation);
 		}
 		
+		BuiltInTester.log("return " + binaryRepresentation);
 		return binaryRepresentation;
 	}
 	
@@ -74,6 +81,9 @@ public class ByteUtility {
 	 * 			 	 if placesToShift is greater than 8 or negative, return 0
 	 */
 	public byte shiftByte(byte b, int placesToShift, boolean left) {
+		BuiltInTester.expecting("return 10", b, 5, placesToShift, 1, left, true);
+		BuiltInTester.expecting("return 3", b, 15, placesToShift, 2, left, false);
+		BuiltInTester.expecting("return 0", b, 56, placesToShift, 9, left, false);
 		
 		byte shiftedByte;
 		
@@ -85,6 +95,7 @@ public class ByteUtility {
 			shiftedByte = (byte) (b >> placesToShift);
 		}
 		
+		BuiltInTester.log("return " + shiftedByte);
 		return shiftedByte;
 	}
 	

@@ -1,5 +1,7 @@
 package com.idt.contest.highschool.winter2014.codetotest;
 
+import org.ohs1.winter2013.BuiltInTester;
+
 import com.idt.contest.highschool.winter2014.framework.FrameworkConstants;
 
 /**
@@ -25,12 +27,18 @@ public class TimeUtility {
 	 * @return - double representation of number of milliseconds in HMS time (posix time), -1 if the time value is invalid
 	 */
 	public double HMSStringTimeToPosix(String HMS) {
+		BuiltInTester.expecting("return " + 18925000.0, HMS, "5:15:25");
+		BuiltInTester.expecting("return " + 1100.0, HMS, "0:00:01.1");
+		BuiltInTester.expecting("return " + 86399999.0, HMS, "23:59:59.999");
+		BuiltInTester.expecting("return " + 0.0, HMS, "0:00:00");
+		
 		double fraction = 0.0;
 		int hours, minutes, seconds;
 		StringUtility su = new StringUtility();
 
 		// handle null and zero time
 		if (HMS == null ||  HMS.equals("0.0")) {
+			BuiltInTester.log("return 0.0");
 			return 0.0;
 		}
 		
@@ -57,10 +65,14 @@ public class TimeUtility {
 			}
 	
 			// convert to posix time, which is total milliseconds of this time
-			return (((hours * 3600.0) + (minutes * 60.0) + seconds + fraction) * 1000);
+			double posixTime = (((hours * 3600.0) + (minutes * 60.0) + seconds + fraction) * 1000);
+			System.out.println("return " + posixTime);
+			BuiltInTester.log("return " + posixTime);
+			return posixTime;
 			
 		} catch (NumberFormatException e) {
 			// instead of throwing an error, this method will return -1 for any non valid date
+			BuiltInTester.log("Invalid value");
 			return FrameworkConstants.INVALID_VALUE;
 		}
 	}
@@ -71,6 +83,10 @@ public class TimeUtility {
 	 * @return - double millisecond posix representation of date, -1 if the date value is invalid
 	 */
 	public double dateToPosix(String input_date) {
+		BuiltInTester.expecting("return " + 1387152000.0, input_date, "2013/12/16");
+		BuiltInTester.expecting("return " + 0.0, input_date, "1970/01/01");
+		BuiltInTester.expecting("return " + 2764800.0, input_date, "1970/02/02");
+		
 		int    year, month, day;
 		int    total_days, num_leap_year;
 		double seconds = 0;
@@ -136,6 +152,7 @@ public class TimeUtility {
 			seconds = -1.0;
 		}
 
+		BuiltInTester.log("return " + seconds);
 		return seconds;
 	}
 	

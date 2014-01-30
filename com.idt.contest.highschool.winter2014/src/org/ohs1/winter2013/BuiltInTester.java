@@ -82,8 +82,7 @@ public class BuiltInTester {
 		}
 
 		// Get method name from stack trace
-		String methodName = Thread.currentThread().getStackTrace()[3]
-				.getMethodName();
+		String methodName = getCurrentMethodName();
 
 		// Construct a list of the parameter values
 		List<Object> params = new ArrayList<>();
@@ -107,14 +106,20 @@ public class BuiltInTester {
 	 * @param message
 	 */
 	public void logInner(String message) {
-		// Evaluate the correctness of all expectations and add the
-		// appropriate log entries
-		for (Expectation e : expectations) {
-			logEntries.add(new LogEntry(message, e));
+		//The name of the current method
+		String currentMethodName = getCurrentMethodName();
+		
+		//Evaluate the correctness of the expectations from the current method (in order of being added)
+		int i = 0;
+		while (i < expectations.size()) {
+			//Check to see if the expectation was made in this method
+			if (expectations.get(i).getMethodName().equals(currentMethodName)) {
+				//Add it to the log entries and get rid of it
+				logEntries.add(new LogEntry(message, expectations.get(i)));
+				expectations.remove(i);
+			} else
+				i++; //Otherwise keep looking
 		}
-
-		// Clear the list of expectations
-		expectations.clear();
 	}
 	
 	public static void outputLog() {
@@ -167,6 +172,10 @@ public class BuiltInTester {
 		} else {
 			return "Not enabled\n";
 		}
+	}
+	
+	private String getCurrentMethodName() {
+		return Thread.currentThread().getStackTrace()[4].getMethodName();
 	}
 
 	/**
