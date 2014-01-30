@@ -58,9 +58,21 @@ class LogEntry {
 		// Add parameters
 		trString += "<td>" + expectation.getParameterString() + "</td>";
 		// Add expected log
-		trString += "<td>" + expectation.getExpectedLog() + "</td>";
+		// Check if the log is split over multiple lines and do a mouseover text if it is
+		String expectedLog = expectation.getExpectedLog();
+		if (expectedLog.contains("\n")) {
+			trString += "<td><span title=\"" + expectedLog + "\">" + 
+		                expectedLog.split("\n")[0] + " ...(mouse over for entire message)</span></td>";
+		} else {
+			trString += "<td>" + expectation.getExpectedLog() + "</td>";
+		}
 		// Add received log
-		trString += "<td>" + actualMessage + "</td>";
+		if (actualMessage.contains("\n")) {
+			trString += "<td><span title=\"" + actualMessage + "\">" + 
+		                actualMessage.split("\n")[0] + " ...(mouse over for entire message)</span></td>";
+		} else {
+			trString += "<td>" + actualMessage + "</td>";
+		}
 		// Add pass/fail (if requested)
 		if (!omitPassFail) {
 			if (didPass())

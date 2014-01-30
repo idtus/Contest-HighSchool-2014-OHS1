@@ -210,7 +210,7 @@ public class BuiltInTester {
 		if (param1 == null || param2 == null)
 			return false;
 
-		// Take into account arrays (only does int[] for now)
+		// Take into account arrays (only does int[] for now) 
 		if (param1 instanceof int[] && param2 instanceof int[])
 			return Arrays.equals((int[]) param1, (int[]) param2);
 		else {
