@@ -175,7 +175,13 @@ public class BuiltInTester {
 	}
 	
 	private String getCurrentMethodName() {
-		return Thread.currentThread().getStackTrace()[4].getMethodName();
+		//Uses the stack trace to get the name of the method being tested
+		//In this case, the hierarchy is getStackTrace() -> getCurrentMethodName() ->
+		//                               innerLog/Expecting() -> log/expecting() -> methodBeingTested()
+		//So the proper method is the fifth element of the stack trace
+		StackTraceElement ste = Thread.currentThread().getStackTrace()[4];
+		
+		return ste.getClassName() + "." + ste.getMethodName();
 	}
 
 	/**
