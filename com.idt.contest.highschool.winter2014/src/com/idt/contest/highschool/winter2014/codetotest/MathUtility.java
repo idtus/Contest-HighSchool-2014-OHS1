@@ -1,7 +1,10 @@
 package com.idt.contest.highschool.winter2014.codetotest;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import org.ohs1.winter2013.BuiltInTester;
 
 import com.idt.contest.highschool.winter2014.framework.FrameworkConstants;
 
@@ -17,11 +20,16 @@ public class MathUtility {
 	 * @return boolean - true if the number is even, false if the number is odd
 	 */
 	public boolean isEven(int numToCheck) {
+		BuiltInTester.expecting("return true", numToCheck, 2);
+		BuiltInTester.expecting("return false", numToCheck, 3);
+		BuiltInTester.expecting("return true", numToCheck, 4);
 		
 		// divide the number by 2 and no remainder exists, the number is even
 		if (numToCheck % 2 == 0) {
+			BuiltInTester.log("return true");
 			return true;
 		} else {
+			BuiltInTester.log("return false");
 			return false;
 		}
 	}
@@ -34,10 +42,16 @@ public class MathUtility {
 	 * @return - integer value of the hypotenus of the triangle
 	 */
 	public double hypotenus(double a, double b) {
+		BuiltInTester.expecting("return 5.0", a, 3.0, b, 4.0);
+		BuiltInTester.expecting("return " + Math.sqrt(9.0*9.0 + 16.0*16.0), a, 9.0, b, 16.0);
+		BuiltInTester.expecting("return " + Math.sqrt(100.0*100.0 + 200.0*200.0), a, 100.0, b, 200.0);
 		
 		double aSquared = a * a;
 		double bSquared = b * b;
-		return Math.sqrt(aSquared + bSquared);
+		double result = Math.sqrt(aSquared + bSquared); //added to prevent calculating result twice
+		
+		BuiltInTester.log("return " + result);
+		return result;
 	}
 	
 	
@@ -47,6 +61,9 @@ public class MathUtility {
 	 * @return - array of ints that represent the prime factors
 	 */
 	public int[] primeFactor(int number) {
+		BuiltInTester.expecting("[2, 2, 2]", number, 8);
+		BuiltInTester.expecting("[2, 617]", number, 1234);
+		BuiltInTester.expecting("[5, 7, 13, 29]", number, 13195);
 
 		List<Integer> factors = new ArrayList<Integer>();
 		int divider = 2;
@@ -72,6 +89,7 @@ public class MathUtility {
 		}
 		
 		// return int array of prime factors
+		BuiltInTester.log(Arrays.toString(returnArray));
 		return returnArray;
 	}
 	
@@ -86,6 +104,11 @@ public class MathUtility {
 	 * @return - String representation of binomial product
 	 */
 	public String multiplySimpleBinomials(short x1, short ones1, short x2, short ones2) {
+		BuiltInTester.expecting("return x^2 + 5x + 6", x1, 1, ones1, 3, x2, 1, ones2, 2);
+		BuiltInTester.expecting("return x^2 - 7x + 12", x1, 1, ones1, -4, x2, 1, ones2, -3);
+		BuiltInTester.expecting("return -4x^2 + 4", x1, 2, ones1, 2, x2, -2, ones2, 2);
+		BuiltInTester.expecting("return -12x^2 + 7x - 1", x1, -4, ones1, 1, x2, 3, ones2, -1);
+		BuiltInTester.expecting("return 88x^2 + 49x + 6", x1, -11, ones1, -2, x2, -8, ones2, -3);
 		
 		boolean notTheFirst = false;
 		String binomialResult = "";
@@ -145,6 +168,7 @@ public class MathUtility {
 			binomialResult += Math.abs(last);
 		}
 		
+		BuiltInTester.log("return " + binomialResult);
 		return binomialResult;
 	}
 	
@@ -156,6 +180,8 @@ public class MathUtility {
 	 * @return - float amount of currency you finish with
 	 */
 	public float convertCurrency(float amount, float rate) {
+		BuiltInTester.expecting("return 0.61", amount, 1.00, rate, 0.61);
+		BuiltInTester.expecting("return 73.0", amount, 100.0, rate, 0.73);
 		
 		// if the amount is zero, the result will be zero
 		// if the rate is zero, the result will be zero
@@ -166,6 +192,7 @@ public class MathUtility {
 			return amount;
 		// otherwise we multiply the amount by the exchange rate
 		} else {
+			BuiltInTester.log("return " + amount*rate);
 			return amount * rate;
 		}
 	}

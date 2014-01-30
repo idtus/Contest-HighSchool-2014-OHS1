@@ -1,5 +1,7 @@
 package com.idt.contest.highschool.winter2014;
 
+import org.ohs1.winter2013.BuiltInTester;
+
 import com.idt.contest.highschool.winter2014.framework.BatchMode;
 import com.idt.contest.highschool.winter2014.framework.MenuMode;
 import com.idt.contest.highschool.winter2014.framework.Mode;
@@ -15,6 +17,7 @@ public class Main {
 	 * 				 This application takes a file path to a batch script as single optional argument
 	 */
 	public static void main(String[] args) {
+		BuiltInTester.enable("IDT test program", "TestProgramLog.html");
 			
 		Mode mode;
 		
@@ -28,5 +31,7 @@ public class Main {
 		}
 		
 		mode.execute();
+		
+		BuiltInTester.outputLog();
 	}
 }

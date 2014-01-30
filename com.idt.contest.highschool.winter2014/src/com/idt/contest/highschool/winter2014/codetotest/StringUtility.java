@@ -1,5 +1,7 @@
 package com.idt.contest.highschool.winter2014.codetotest;
 
+import org.ohs1.winter2013.BuiltInTester;
+
 import com.idt.contest.highschool.winter2014.framework.FrameworkConstants;
 
 /**
@@ -14,6 +16,9 @@ public class StringUtility {
 	 * @return - int number of vowels in supplied String
 	 */
 	public int countVowels(String stringToCheck) {
+		BuiltInTester.expecting("return 0", stringToCheck, "bcd fgh jkl mnp qrs tvw xyz");
+		BuiltInTester.expecting("return 3", stringToCheck, "PROGRAMMING");
+		BuiltInTester.expecting("return 13", stringToCheck, "This is a test of the emergency broadcast system");
 		
 		int vowelCount = 0;
 		char currentChar;
@@ -50,6 +55,7 @@ public class StringUtility {
 			}
 		}
 		
+		BuiltInTester.log("return " + vowelCount);
 		return vowelCount;
 	}
 	
@@ -61,6 +67,9 @@ public class StringUtility {
 	 * @return - String representation 2's compliment of binary string
 	 */
 	public String binaryByteTwosCompliment(String binaryByteString) {
+		BuiltInTester.expecting("return 11001101", binaryByteString, "00110011");
+		BuiltInTester.expecting("return 00000000", binaryByteString, "00000000");
+		BuiltInTester.expecting("return 10000001", binaryByteString, "01111111");
 	
 		String binaryRepresentation = "";
 		char currentChar;
@@ -69,6 +78,7 @@ public class StringUtility {
 		
 		// if the binary byte string is null or empty, return an error string
 		if (binaryByteString == null || binaryByteString.isEmpty()) {
+			BuiltInTester.log("Binary representation error");
 			return FrameworkConstants.BINARY_REPRESENTATION_ERROR;
 		}
 		
@@ -111,6 +121,7 @@ public class StringUtility {
 			}
 		}
 		
+		BuiltInTester.log("return " + formatBinaryByteString(binaryRepresentation));
 		return formatBinaryByteString(binaryRepresentation);
 	}
 	
@@ -121,9 +132,13 @@ public class StringUtility {
 	 * @return - String version of binary byte string with 8 characters
 	 */
 	public String formatBinaryByteString(String binaryByteString) {
+		BuiltInTester.expecting("return 00000101", binaryByteString, "0101");
+		BuiltInTester.expecting("return 00000101", binaryByteString, "000000000000000101");
+		BuiltInTester.expecting("return 00000001", binaryByteString, "1");
 		
 		//  handle null pointers by returning an error string
 		if (binaryByteString == null) {
+			BuiltInTester.log("Binary representation error");
 			return FrameworkConstants.BINARY_REPRESENTATION_ERROR;
 		}
 		
@@ -137,6 +152,7 @@ public class StringUtility {
 			binaryByteString = binaryByteString.substring(binaryByteString.length() - FrameworkConstants.BITS_IN_BYTE);
 		}
 		
+		BuiltInTester.log("return " + binaryByteString);
 		return binaryByteString;
 	}
 	
@@ -148,17 +164,23 @@ public class StringUtility {
 	 * @return - int index of first instance of char found in string, -1 if char is never found
 	 */
 	public int indexOfFirstSpecificChar(String stringToCheck, char charToLookFor) {
+		BuiltInTester.expecting("return 2", stringToCheck, "hello", charToLookFor, 'l');
+		BuiltInTester.expecting("return 0", stringToCheck, "hello", charToLookFor, 'h');
+		BuiltInTester.expecting("Invalid value", stringToCheck, "hello", charToLookFor, 'z');
 		
 		if (stringToCheck == null) {
+			BuiltInTester.log("Invalid value");
 			return FrameworkConstants.INVALID_VALUE;
 		}
 		
 		for (int i = 0; i < stringToCheck.length(); i++) {
 			if (stringToCheck.charAt(i) == charToLookFor) {
+				BuiltInTester.log("return " + i);
 				return i;
 			}
 		}
 		
+		BuiltInTester.log("Invalid value");
 		return FrameworkConstants.INVALID_VALUE;
 	}
 	
@@ -170,17 +192,23 @@ public class StringUtility {
 	 * @return - int index of last instance of char found in string, -1 if char is never found
 	 */
 	public int indexOfLastSpecificChar(String stringToCheck, char charToLookFor) {
+		BuiltInTester.expecting("return 3", stringToCheck, "hello", charToLookFor, 'l');
+		BuiltInTester.expecting("return 0", stringToCheck, "hello", charToLookFor, 'h');
+		BuiltInTester.expecting("Invalid value", stringToCheck, "hello", charToLookFor, 'z');
 		
 		if (stringToCheck == null) {
+			BuiltInTester.log("Invalid value");
 			return FrameworkConstants.INVALID_VALUE;
 		}
 		
 		for (int i = stringToCheck.length() - 1; i >= 0; i--) {
 			if (stringToCheck.charAt(i) == charToLookFor) {
+				BuiltInTester.log("return " + i);
 				return i;
 			}
 		}
 		
+		BuiltInTester.log("Invalid value");
 		return FrameworkConstants.INVALID_VALUE;
 	}
 }

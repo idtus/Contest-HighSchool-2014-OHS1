@@ -15,7 +15,7 @@ com.idt.contest.highschool.winter2014.codetotest.MathUtility,multiplySimpleBinom
 com.idt.contest.highschool.winter2014.codetotest.MathUtility,convertCurrency,1.00,0.61
 com.idt.contest.highschool.winter2014.codetotest.MathUtility,convertCurrency,100.00,0.73
 com.idt.contest.highschool.winter2014.codetotest.StringUtility,countVowels,bcd fgh jkl mnp qrs tvw xyz
-com.idt.contest.highschool.winter2014.codetotest.StringUtility,countVowels,programming
+com.idt.contest.highschool.winter2014.codetotest.StringUtility,countVowels,PROGRAMMING
 com.idt.contest.highschool.winter2014.codetotest.StringUtility,countVowels,This is a test of the emergency broadcast system
 com.idt.contest.highschool.winter2014.codetotest.StringUtility,formatBinaryByteString,0101
 com.idt.contest.highschool.winter2014.codetotest.StringUtility,formatBinaryByteString,000000000000000101
