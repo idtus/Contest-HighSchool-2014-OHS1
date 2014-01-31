@@ -50,6 +50,9 @@ public class BuiltInTester {
 
 	// A queue storing the log entries in the order that they were created
 	private Queue<LogEntry> logEntries;
+	
+	// A queue to store additional entries if they were too big to fit in the table
+	private Queue<String> additionalEntries;
 
 	/**
 	 * Enables the BuiltInTester API. All BuiltInTester methods after the enable
@@ -71,6 +74,7 @@ public class BuiltInTester {
 	private BuiltInTester() {
 		this.expectations = new ArrayList<>();
 		this.logEntries = new LinkedList<>();
+		this.additionalEntries = new LinkedList<>();
 	}
 
 	/**
@@ -310,7 +314,7 @@ public class BuiltInTester {
 			if (!entry.didPass())
 				failedEntries.add(entry);
 
-			bw.write("    " + entry.toTRString(false) + "\n");
+			bw.write("    " + entry.toTRString(false, additionalEntries) + "\n");
 		}
 		bw.write("</tbody>\n</table>\n");
 
@@ -327,8 +331,18 @@ public class BuiltInTester {
 		// Body of second (failed entries) table
 		bw.write("<tbody>\n");
 		while (!failedEntries.isEmpty())
-			bw.write("    " + failedEntries.poll().toTRString(true) + "\n");
+			bw.write("    " + failedEntries.poll().toTRString(true, additionalEntries) + "\n");
 		bw.write("</tbody>\n</table>\n");
+		
+		// The list of additional entries (if any)
+		if (!additionalEntries.isEmpty()) {
+			bw.write("<h2>Additional (overflow) results</h2>\n");
+			
+			// Add the additional entries
+			while (!additionalEntries.isEmpty()) {
+				bw.write(additionalEntries.poll());
+			}
+		}
 
 		// End of body
 		bw.write("</body>\n");

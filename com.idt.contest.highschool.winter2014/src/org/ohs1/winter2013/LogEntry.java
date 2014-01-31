@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Queue;
 
 /**
  * Constitutes everything that each log entry in the html output file is.
@@ -48,7 +49,7 @@ class LogEntry {
 	 * row. omitPassFail returns a string omitting the pass/fail table entry for
 	 * the fail only table
 	 */
-	String toTRString(boolean omitPassFail) {
+	String toTRString(boolean omitPassFail, Queue<String>additionalEntries) {
 		String trString = "<tr>";
 
 		// Add date
@@ -61,15 +62,29 @@ class LogEntry {
 		// Check if the log is split over multiple lines and do a mouseover text if it is
 		String expectedLog = expectation.getExpectedLog();
 		if (expectedLog.contains("\n")) {
-			trString += "<td><span title=\"" + expectedLog + "\">" + 
-		                expectedLog.split("\n")[0] + " ...(mouse over for entire message)</span></td>";
+			int entryNumber = additionalEntries.size();
+			// Create link to additional information
+			trString += "<td><a href=\"#additional" + entryNumber + "\">" + 
+						expectedLog.split("\n")[0] + " ...(follow link for entire message)</a></td>";
+			// Add the additional information to the queue
+			String additional = "<h4>Expected log for " + expectation.getMethodName() + "</h4>" +
+			                    "\n<a name=\"additional" + entryNumber + "\"></a><pre>\n" +
+					            expectedLog + "</pre>\n";
+			additionalEntries.add(additional);
 		} else {
 			trString += "<td>" + expectation.getExpectedLog() + "</td>";
 		}
 		// Add received log
 		if (actualMessage.contains("\n")) {
-			trString += "<td><span title=\"" + actualMessage + "\">" + 
-		                actualMessage.split("\n")[0] + " ...(mouse over for entire message)</span></td>";
+			int entryNumber = additionalEntries.size();
+			// Create link to additional information
+			trString += "<td><a href=\"#additional" + entryNumber + "\">" + 
+						actualMessage.split("\n")[0] + " ...(follow link for entire message)</a></td>";
+			// Add the additional information to the queue
+			String additional = "<h4>Actual message for " + expectation.getMethodName() + "</h4>" +
+			                    "\n<a name=\"additional" + entryNumber + "\"></a><pre>\n" +
+					            actualMessage + "</pre>\n";
+			additionalEntries.add(additional);
 		} else {
 			trString += "<td>" + actualMessage + "</td>";
 		}
